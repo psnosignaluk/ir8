@@ -4,12 +4,11 @@ import (
 	"io"
 	"net/http"
 	"time"
-
-	ir8Client "github.com/psnosignaluk/ir8/api/ir8_client"
 )
 
 type HTTPClientOptions struct {
 	AppVersion        string
+	Host              string
 	CacheTTL          time.Duration
 	Log               io.Writer
 	LogColorize       bool
@@ -18,8 +17,5 @@ type HTTPClientOptions struct {
 }
 
 func NewHTTPClient(opts HTTPClientOptions) (*http.Client, error) {
-	clientOpts := ir8Client.ClientOptions{
-		Host: "none",
-	}
 	return nil, nil
 }

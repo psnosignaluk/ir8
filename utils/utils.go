@@ -1,6 +1,8 @@
 package utils
 
-import "os"
+import (
+	"os"
+)
 
 const CurrentVersion = "0.1.0"
 
