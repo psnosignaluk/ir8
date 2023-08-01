@@ -1,6 +1,3 @@
-/*
-Copyright © 2023 Paul Stevens <ps@thepufferfish.uk>
-*/
 package cmd
 
 import (
