@@ -9,7 +9,7 @@ import (
 var rootCmd = &cobra.Command{
 	Use:   "ir8",
 	Short: "Out and about, kicking over bins, looking for trouble.",
-	Long:  `Designed as a tool to poke at services looking for configs that may prove somewhat troublesome.`,
+	Long:  `Designed as a tool to poke at services, looking for configs that may prove somewhat troublesome.`,
 	// Run: func(cmd *cobra.Command, args []string) { },
 }
 
