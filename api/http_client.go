@@ -1,21 +1,33 @@
 package api
 
 import (
-	"io"
+	"net"
 	"net/http"
 	"time"
 )
 
 type HTTPClientOptions struct {
-	AppVersion        string
-	Host              string
-	CacheTTL          time.Duration
-	Log               io.Writer
-	LogColorize       bool
-	SkipAcceptHeaders bool
-	Timeout           time.Duration
+	Host        string
+	KeepAlive   time.Duration
+	DialTimeout time.Duration
+	Timeout     time.Duration
+	TLSTimeout  time.Duration
 }
 
 func NewHTTPClient(opts HTTPClientOptions) (*http.Client, error) {
-	return nil, nil
+	transport := http.Transport{
+		Proxy: http.ProxyFromEnvironment,
+		Dial: (&net.Dialer{
+			Timeout:   opts.DialTimeout,
+			KeepAlive: opts.KeepAlive,
+		}).Dial,
+		TLSHandshakeTimeout: opts.TLSTimeout,
+	}
+
+	client := http.Client{
+		Transport: &transport,
+		Timeout:   opts.Timeout,
+	}
+
+	return &client, nil
 }
