@@ -40,7 +40,9 @@ func GetIPInfoData(token string, ip string) (map[string]string, error) {
 
 	data["country"] = info.Country
 	data["countryName"] = info.CountryName
+	data["continent"] = info.Continent.Name
 	data["countryFlag"] = info.CountryFlag.Emoji
+	data["location"] = info.Location
 	data["city"] = info.City
 	data["ip"] = info.IP.String()
 	data["isEU"] = strconv.FormatBool(info.IsEU)

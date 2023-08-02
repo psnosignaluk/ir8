@@ -36,12 +36,13 @@ var selfCmd = &cobra.Command{
 		if ok {
 			data, err := api.GetIPInfoData(ipinfo_token, public["public_ip"])
 			if err != nil {
-				fmt.Errorf("%v", err)
+				fmt.Errorf(err.Error())
 			}
 
 			fmt.Printf("You're currently using the public IP address %s\n", data["ip"])
-			fmt.Printf("\tCountry: %s (%s, %s)\n", data["country"], data["city"], data["countryName"])
+			fmt.Printf("\tCountry: %s (%s, %s, %s)\n", data["country"], data["city"], data["countryName"], data["continent"])
 			fmt.Printf("\tBased in the EU: %s\n", data["isEU"])
+			fmt.Printf("\tLocation: %s", data["location"])
 			fmt.Println()
 		}
 	},
