@@ -4,7 +4,6 @@ import (
 	"io"
 	"net"
 	"net/http"
-	"strconv"
 
 	"github.com/ipinfo/go/v2/ipinfo"
 )
@@ -28,9 +27,7 @@ func SelfGetPublicIP() (map[string]string, error) {
 	return m, nil
 }
 
-func GetIPInfoData(token string, ip string) (map[string]string, error) {
-	data := make(map[string]string)
-
+func GetIPInfoData(token string, ip string) (*ipinfo.Core, error) {
 	client := ipinfo.NewClient(nil, nil, token)
 
 	info, err := client.GetIPInfo(net.ParseIP(ip))
@@ -38,14 +35,5 @@ func GetIPInfoData(token string, ip string) (map[string]string, error) {
 		return nil, err
 	}
 
-	data["country"] = info.Country
-	data["countryName"] = info.CountryName
-	data["continent"] = info.Continent.Name
-	data["countryFlag"] = info.CountryFlag.Emoji
-	data["location"] = info.Location
-	data["city"] = info.City
-	data["ip"] = info.IP.String()
-	data["isEU"] = strconv.FormatBool(info.IsEU)
-
-	return data, err
+	return info, err
 }
