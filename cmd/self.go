@@ -28,7 +28,7 @@ var selfCmd = &cobra.Command{
 		}
 
 		if !ok {
-			fmt.Printf("%s is not set or is empty. Falling back to another IP lookup method.\n", ipinfo_token)
+			fmt.Println("IP Info token is not set or is empty. Falling back to a basic IP lookup method.", ipinfo_token)
 			fmt.Printf("Current public IP Address is: %s\n", public["public_ip"])
 
 			os.Exit(0)
@@ -40,13 +40,14 @@ var selfCmd = &cobra.Command{
 				fmt.Printf("Error: %v", err)
 			}
 
-			fmt.Printf("You're currently using the public IP address %s\n", data.IP)
-			fmt.Printf("\tCountry: %s (%s, %s, %s)\n", data.Country, data.City, data.CountryName, data.Continent.Name)
+			fmt.Printf("You're currently using the public IP address %s (%s)\n", data.IP, data.Org)
+			fmt.Printf("\tCountry: %s (%s, %s, %s, %s)\n", data.Country, data.City, data.CountryName, data.Continent.Name, data.Postal)
 			fmt.Printf("\tBased in the EU: %s\n", strconv.FormatBool(data.IsEU))
 			fmt.Printf("\tLocation: %s\n", data.Location)
 			fmt.Printf("\tTimezone: %s\n", data.Timezone)
 			fmt.Println()
-			fmt.Println("Connection Details:")
+			fmt.Println("Local Interfaces:")
+			api.DeviceList()
 			fmt.Println()
 		}
 	},

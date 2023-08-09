@@ -4,7 +4,7 @@ import (
 	"os"
 )
 
-const CurrentVersion = "0.1.0"
+const CurrentVersion = "0.0.1"
 
 func AppVersion() string {
 	return CurrentVersion
