@@ -23,7 +23,9 @@ func DeviceList(iface string) {
 	if iface == "all" || iface == "" {
 		fmt.Println("Local Interfaces:")
 		for _, device := range devices {
-			fmt.Printf("\tName: %s\n", device.Name)
+			for _, address := range device.Addresses {
+				fmt.Printf("\tName: %s\t[%s/%d]\n", device.Name, address.IP, cidr(address.Netmask))
+			}
 		}
 	} else {
 		for _, device := range devices {
