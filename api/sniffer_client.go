@@ -5,19 +5,11 @@ import (
 	"net"
 
 	"github.com/google/gopacket/pcap"
-	"github.com/seancfoley/ipaddress-go/ipaddr"
 )
 
-func cidr(mask net.IPMask) *ipaddr.PrefixBitCount {
-	var prefix *ipaddr.PrefixBitCount
-
-	if len(mask.String()) == 8 && mask.String() == "ffffff00" {
-		// TODO (PS) A bug that needs to be squashed. We need to explode the ffffff00 value returned
-		// as the IPv4 netmask into something that ipaddr understands and doesn't throw a seqfault over.
-		prefix = ipaddr.NewIPAddressString("255.255.255.0").GetAddress().GetBlockMaskPrefixLen(true)
-	} else {
-		prefix = ipaddr.NewIPAddressString(mask.String()).GetAddress().GetBlockMaskPrefixLen(true)
-	}
+func cidr(mask net.IPMask) int {
+	subnet := net.IPMask(mask)
+	prefix, _ := subnet.Size()
 
 	return prefix
 }
@@ -38,7 +30,7 @@ func DeviceList(iface string) {
 			if device.Name == iface {
 				fmt.Printf("Interface Name: %s\n", device.Name)
 				for _, address := range device.Addresses {
-					fmt.Printf("\tIP/Subnet: %s/%s\n", address.IP, cidr(address.Netmask))
+					fmt.Printf("\tIP/Subnet: %s/%d\n", address.IP, cidr(address.Netmask))
 				}
 			}
 		}
