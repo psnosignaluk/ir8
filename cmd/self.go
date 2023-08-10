@@ -9,7 +9,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var iface string
+
 func init() {
+	selfCmd.Flags().StringVarP(&iface, "iface", "i", "", "Define an interface to self-assess on")
 	rootCmd.AddCommand(selfCmd)
 }
 
@@ -46,8 +49,7 @@ var selfCmd = &cobra.Command{
 			fmt.Printf("\tLocation: %s\n", data.Location)
 			fmt.Printf("\tTimezone: %s\n", data.Timezone)
 			fmt.Println()
-			fmt.Println("Local Interfaces:")
-			api.DeviceList()
+			api.DeviceList(iface)
 			fmt.Println()
 		}
 	},
