@@ -38,3 +38,7 @@ func DeviceList(iface string) {
 		}
 	}
 }
+
+func DetectVPN(iface string) string {
+	return iface
+}

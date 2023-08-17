@@ -10,9 +10,11 @@ import (
 )
 
 var iface string
+var checkvpn bool
 
 func init() {
 	selfCmd.Flags().StringVarP(&iface, "iface", "i", "", "Define an interface to self-assess on")
+	selfCmd.Flags().BoolVarP(&checkvpn, "checkvpn", "", false, "Check local VPN status")
 	rootCmd.AddCommand(selfCmd)
 }
 
@@ -51,6 +53,9 @@ var selfCmd = &cobra.Command{
 			fmt.Println()
 			api.DeviceList(iface)
 			fmt.Println()
+			if checkvpn {
+				fmt.Println("Checking local VPN status.")
+			}
 		}
 	},
 }
